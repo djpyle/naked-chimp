@@ -3,7 +3,7 @@
     <listid key="YOUR LIST KEY HERE" />
     <welcomeemail key="false" />
     <doubleoptin  key="false" />
-    <totalgroupings key="2" />
+    <totalgroupings key="1" />
     
     <grouping key="GROUPINGS HERE" >
        <group key="GROUP1" />
