@@ -1,14 +1,14 @@
 <root>
-    <apikey key="8254973761b997c9c09e83e1c8da36e77-us6" />
-    <listid key="bf228f78a55" />
+    <apikey key="YOUR API KEY HERE" />
+    <listid key="YOUR LIST KEY HERE" />
     <welcomeemail key="false" />
     <doubleoptin  key="false" />
     <totalgroupings key="2" />
     
-    <grouping key="Status" >
-       <group key="Prospect" />
-       <group key="Active" />
-       <group key="Inactive" />
+    <grouping key="GROUPINGS HERE" >
+       <group key="GROUP1" />
+       <group key="GROUP2" />
+       <group key="GROUP3" />
     </grouping>
   
 </root>
