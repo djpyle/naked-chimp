@@ -1,14 +1,16 @@
 <root>
-    <apikey key="8254973761b997c9c09e83e1c8da36e7-us6" />
-    <listid key="bf228f78a5" />
+    <apikey key="374e4dc45917b1a48525c8131f276a9d-us6" /> 
+    <listid key="dc0fcc19a5" />
     <welcomeemail key="false" />
     <doubleoptin  key="false" />
+    <successtype  key="url" />
+    <thankyouurl  key="http://www.chimpchamp.com" />
+
     <totalgroupings key="1" />
     
-    <grouping key="Status" >
-       <group key="Prospect" />
-       <group key="Active" />
-       <group key="Inactive" />
-    </grouping>
+    <grouping key="Top" >
+       <group key="Top" />
+       <group key="MC" />
+   </grouping>
   
 </root>

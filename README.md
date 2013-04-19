@@ -1,5 +1,5 @@
 naked-chimp
-===========
+=========== 
 
 Naked MailChimp PHP subscription form Brought to you by: ChimpChamp.com
 

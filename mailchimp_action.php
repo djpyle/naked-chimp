@@ -1,5 +1,5 @@
 <?php
-// Brought to you by: ChimpChamp.com
+// Brought to you by: ChimpChamp.com 
 
 
 Class XmlUtils {
@@ -93,6 +93,8 @@ Class XmlUtils {
 	$update_existing=true;
 	$replace_interests=true;
 	$welcome=$resultObj->welcomeemail->key;
+	$successtype=$resultObj->successtype->key;
+    $thankyouurl=$resultObj->thankyouurl->key;
 
 
 
@@ -121,19 +123,26 @@ Class XmlUtils {
 		    $index=0;
 		    $grouping ="";
 			 foreach ($resultObj->grouping as $gping) 
-	     	{
-	    	
-			  foreach ($gping as $gp) 
+	     	 {
+	    	  foreach ($gping as $gp) 
 	      	 	{
-	      	 		echo $resultObj->grouping->key ."==>".$gp->key."<br />";
-	       	   		$garray[++$index] = array('name'=>$resultObj->grouping->key,'groups'=>$gp->key);        
+	      	 		if(empty($gp->key)){
+	      	 		echo $resultObj->grouping->key ."==>".$gp."<br />";
+	      	 		$garray[++$index] = array('name'=>$resultObj->grouping->key,'groups'=>$gp);        
+	      	 	  
+	      	 	    }
+	      	 	    else 
+	      	 	    {	
+	      	 	    echo $resultObj->grouping->key ."==>".$gp->key."<br />";
+	      	 	    $garray[++$index] = array('name'=>$resultObj->grouping->key,'groups'=>$gp->key);        
+	      	 	    }	
+	      	 		
 	       	  	}
 	 	    }
 	     
 
 		   $merge_vars = array('FNAME'=>$name, 
 		 	'LNAME'=>"", 
-		 	'GROUPINGS'=>$garray,
 		 	'EMAIL'=>htmlentities($email),
 		    'GROUPINGS'=>$garray
 		    );
@@ -147,10 +156,22 @@ Class XmlUtils {
 					echo "Unable to load listSubscribe()!\n";
 					echo "\tCode=".$api->errorCode."\n";
 					echo "\tMsg=".$api->errorMessage."\n";
+					header ("Location: index.php?msg=email_error");
+
 				} else {
-				    echo "Subscribed - look for the confirmation email!\n";
+
+					echo "\n Subscribed";
+					if($successtype === "url")
+				    {
+				      	header ("Location: ".$thankyouurl);
+											    
+				    }
+				    else 
+				    {
+				        header ("Location: index.php?msg=success");
+				    }
+
 				}
-			header ("Location: index.php?msg=success");
 			//CODE TO UPDATE SUBSCRIBER
 			/*if($cnt == 0){
 				$count = '1';

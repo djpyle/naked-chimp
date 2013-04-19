@@ -1,6 +1,6 @@
 <?php
 
-class MCAPI {
+class MCAPI { 
     var $version = "1.3";
     var $errorMessage;
     var $errorCode;
