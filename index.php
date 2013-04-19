@@ -10,14 +10,17 @@
 <body>
 
     <?php if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'email_error'){?>
-        <p style="color:red;font-size:10px">The email entered is invalid</p>
+        <p style="color:red;font-size:14px">The email entered is invalid</p>
     <?php }?>
     <?php if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'success'){?>
-        <p style="color:green;font-size:10px">You have been subscribed successfully!</p>
+        <p style="color:green;font-size:14px">You have been subscribed successfully!</p>
     <?php } ?>
     <?php if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'update'){?>
-        <p style="color:green;font-size:10px">You're already subscribed to this list.</p>
+        <p style="color:green;font-size:14px">You're already subscribed to this list.</p>
     <?php } ?>
+
+<!-- If your opt-in form is not in the same directory as the rest of the scripts,
+replace the form action below with the full path to mailchimp_action.php -->
 
     <form action="mailchimp_action.php" method="post" class="">
         <input type="hidden" value="" name="action">
