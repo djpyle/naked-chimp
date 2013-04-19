@@ -1,16 +1,16 @@
 <root>
-    <apikey key="374e4dc45917b1a48525c8131f276a9d-us6" /> 
-    <listid key="dc0fcc19a5" />
-    <welcomeemail key="false" />
+    <apikey key="YOUR_API_KEY" /> 
+    <listid key="YOUR_LIST_ID" />
     <doubleoptin  key="false" />
+    <welcomeemail key="true" />
     <successtype  key="url" />
-    <thankyouurl  key="http://www.chimpchamp.com" />
+    <thankyouurl  key="http://ChimpChamp.com" />
 
     <totalgroupings key="1" />
     
-    <grouping key="Top" >
-       <group key="Top" />
-       <group key="MC" />
+    <grouping key="Grouping Name" >
+       <group key="Group 1 Name" />
+       <group key="Group 2 Name" />
    </grouping>
   
 </root>
