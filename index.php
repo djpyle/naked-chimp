@@ -9,8 +9,11 @@
     </head>
 <body>
 
+<!-- You can change the error and success messages below. The success message
+will be displayed above the form, if you enter "inline" for successtype in input.xml -->
+
     <?php if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'email_error'){?>
-        <p style="color:red;font-size:14px">The email entered is invalid</p>
+        <p style="color:red;font-size:14px">The email entered is invalid. Please try again.</p>
     <?php }?>
     <?php if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'success'){?>
         <p style="color:green;font-size:14px">You have been subscribed successfully!</p>
