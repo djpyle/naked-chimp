@@ -6,11 +6,17 @@
     <successtype  key="url" />
     <thankyouurl  key="http://ChimpChamp.com" />
 
-    <totalgroupings key="1" />
+    <totalgroupings key="2" />
     
-    <grouping key="Grouping Name" >
+    <grouping key="Grouping 1 Name" >
        <group key="Group 1 Name" />
        <group key="Group 2 Name" />
-   </grouping>
+    </grouping>
+    
+    <grouping key="Grouping 2 Name" >
+       <group key="Group 1 Name" />
+       <group key="Group 2 Name" />
+       <group key="Group 3 Name" />
+    </grouping>
   
 </root>
