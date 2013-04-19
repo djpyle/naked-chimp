@@ -13,7 +13,7 @@ Enjoy!
 input.xml settings:
 
 
-   <apikey key="YOUR_API_KEY" /> Where can I find my API Key?: http://eepurl.com/im9k
+        <apikey key="YOUR_API_KEY" /> Where can I find my API Key?: http://eepurl.com/im9k
 	<listid key="YOUR_LIST_ID" /> How can I find my List ID?: http://eepurl.com/hcAw
 	<doubleoptin  key="false" /> This can be true or false and will determine if your subscribers need to confirm or not. Do not abuse this option!
 	<welcomeemail key="true" /> This can be true or false (ignored if doubleoptin is true) and determines if your subscribers get the "Final Welcome" email or not.
