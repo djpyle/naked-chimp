@@ -74,8 +74,8 @@ Class XmlUtils {
 
 // $apikey = 'YOURAPIKEY'; // Enter your API Key
 // $listId = 'YOURLISTID'; // Enter your List ID
-// $double = 'false'; // Enter true or false for Double Opt-in
-// $welcome = 'true'; // Enter true or false to send the Final Welcome Email Message
+$double = 'false'; // Enter true or false for Double Opt-in
+$welcome = 'true'; // Enter true or false to send the Final Welcome Email Message
 
 	$name = $_POST["fname"];
 	$format = "html";
@@ -118,28 +118,47 @@ Class XmlUtils {
 		// 	$success = $retval['success'];
 		// }
 			//CODE TO ADD NEW SUBSCRIBER
-			echo "new subscriber";
-			$garray = array();
+			echo "new subscriber<br>";
+			
 		    $index=0;
-		    $grouping ="";
-			 foreach ($resultObj->grouping as $gping) 
-	     	 {
-	    	  foreach ($gping as $gp) 
-	      	 	{
-	      	 		if(empty($gp->key)){
-	      	 		echo $resultObj->grouping->key ."==>".$gp."<br />";
-	      	 		$garray[++$index] = array('name'=>$resultObj->grouping->key,'groups'=>$gp);        
-	      	 	  
-	      	 	    }
-	      	 	    else 
-	      	 	    {	
-	      	 	    echo $resultObj->grouping->key ."==>".$gp->key."<br />";
-	      	 	    $garray[++$index] = array('name'=>$resultObj->grouping->key,'groups'=>$gp->key);        
-	      	 	    }	
-	      	 		
-	       	  	}
-	 	    }
-	     
+		    $groupArray =array();
+		    //print_r($resultObj->groups);
+		    foreach ($resultObj->groups as $groups) {
+		    	
+		    	$garray ='';
+		    	$Gettype = gettype($groups);
+		    	if($Gettype == 'array'){
+			    	foreach ($groups as $groupings) {
+
+			    	 	$grouping = $groupings->key;
+			    	 	$intrests = array();
+			    	 	
+			    	 	foreach ($groupings->group as $gp){
+			      	 	if(empty($gp->key)){
+			      	 		echo $resultObj->grouping->key ."==>".$gp."<br />";
+			      	 		$garray[++$index] = array('name'=>$groupings->key,'groups'=>$gp);        
+			      	 	}else{	
+			      	 	  echo $resultObj->grouping->key ."==>".$gp->key."<br />";
+			      	 	  $garray[++$index] = array('name'=>$groupings->key,'groups'=>$gp->key);        
+			      	 	}			      	 		
+			       	}
+			    	 	$groupArray = $garray;
+			    	} 
+		    	}else{
+
+		        foreach ($groups->group as $gp){
+		          if(empty($gp->key)){
+		           echo $groups->group->key ."==>".$gp."<br />";
+		           $garray[++$index] = array('name'=>$groups->key,'groups'=>$gp);        
+		            
+		          }else{ 
+		            echo $groups->group->key ."==>".$gp->key."<br />";
+		            $garray[++$index] = array('name'=>$groups->key,'groups'=>$gp->key);        
+		          } 
+		           
+		        }
+		    	}
+		    }
 
 		   $merge_vars = array('FNAME'=>$name, 
 		 	'LNAME'=>"", 

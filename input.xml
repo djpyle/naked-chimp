@@ -1,6 +1,6 @@
 <root>
-    <apikey key="YOUR_API_KEY" /> 
-    <listid key="YOUR_LIST_ID" />
+    <apikey key="YOUR API KEY" /> 
+    <listid key="YOUR LIST ID" />
     <doubleoptin  key="false" />
     <welcomeemail key="true" />
     <successtype  key="url" />
@@ -8,15 +8,16 @@
 
     <totalgroupings key="2" />
     
-    <grouping key="Grouping 1 Name" >
-       <group key="Group 1 Name" />
-       <group key="Group 2 Name" />
-    </grouping>
-    
-    <grouping key="Grouping 2 Name" >
-       <group key="Group 1 Name" />
-       <group key="Group 2 Name" />
-       <group key="Group 3 Name" />
-    </grouping>
+    <groups>
+      <grouping key="Grouping name 1" >
+         <group key="Group 1 Name" />
+         <group key="Group 2 Name" />
+      </grouping>
+      <grouping key="Grouping Name 2" >
+         <group key="Group 1 Name" />
+         <group key="Group 2 Name" />
+         <group key="Group 3 Name" />
+      </grouping>
+    </groups>
   
 </root>

@@ -12,16 +12,16 @@
 <!-- You can change the error and success messages below. The success message
 will be displayed above the form, if you enter "inline" for successtype in input.xml -->
 
-    <?php if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'email_error'){?>
-        <p style="color:red;font-size:14px">The email entered is invalid. Please try again.</p>
+   <?php if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'success'){?>
+        <p style="color:green;font-size:10px">You have been subscribed successfully!</p>
+    <?php } 
+     else if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'update'){?>
+        <p style="color:green;font-size:10px">You're already subscribed to this list.</p>
+    <?php } 
+     else {?>
+        <p style="color:red;font-size:10px"><?php echo $_REQUEST['msg']; ?></p>
     <?php }?>
-    <?php if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'success'){?>
-        <p style="color:green;font-size:14px">You have been subscribed successfully!</p>
-    <?php } ?>
-    <?php if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'update'){?>
-        <p style="color:green;font-size:14px">You're already subscribed to this list.</p>
-    <?php } ?>
-
+   
 <!-- If your opt-in form is not in the same directory as the rest of the scripts,
 replace the form action below with the full path to mailchimp_action.php -->
 
