@@ -32,3 +32,6 @@ input.xml settings:
        <group key="Group 2 Name" />
        <group key="Group 3 Name" />
     </grouping>
+    
+    
+Explaination video is here: http://www.screencast.com/t/Wt2zPffcihuF
