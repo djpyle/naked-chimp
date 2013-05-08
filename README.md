@@ -17,6 +17,8 @@ input.xml settings:
     <listid key="YOUR_LIST_ID" /> How can I find my List ID?: http://eepurl.com/hcAw
     <doubleoptin  key="false" /> This can be true or false and will determine if your subscribers need to confirm or not. Do not abuse this option!
     <welcomeemail key="true" /> This can be true or false (ignored if doubleoptin is true) and determines if your subscribers get the "Final Welcome" email or not.
+    <update_existing key="true" /> This can be true or false and determines wether an existing subscriber should be updated or if the request should be ignored if the subscriber already exists. 
+    <replaceinterests  key="true" /> This can be true or false and determines wether the current group settings are overwritten or added to. (Irrelevant if updateexisting is set to false.)
     <successtype  key="url" /> This can be inline or url.
     <thankyouurl  key="http://ChimpChamp.com" /> If you enter url above, this is where subscribers get redirected on success. It is ignored if you enter inline above.
 
