@@ -3,69 +3,69 @@
 
 
 Class XmlUtils {
- 
-    public static function xmlToObject($xml, $obj = null) {
-        if (!$obj) $obj = new StdClass();
+
+	public static function xmlToObject($xml, $obj = null) {
+		if (!$obj) $obj = new StdClass();
         //**********************************************************
         // Create array of unique node names
-        $uniqueNodeNames = array();
-        foreach ($xml->children() as $xmlChild) {
-            @$uniqueNodeNames[$xmlChild->getName()]++;
-        }
+		$uniqueNodeNames = array();
+		foreach ($xml->children() as $xmlChild) {
+			@$uniqueNodeNames[$xmlChild->getName()]++;
+		}
         //**********************************************************
         // Create child types - object for single nodes, array of objects for multi nodes:
-        foreach ($uniqueNodeNames as $nodeName => $nodeCount) {
-            if ($nodeCount > 1) {
-                $obj->$nodeName = array();
-                for ($i=0; $i<$nodeCount; $i++) {
-                    array_push($obj->$nodeName, new StdClass());
-                }
-            } else {
-                $obj->$nodeName = new StdClass();
-            }
-        }
+		foreach ($uniqueNodeNames as $nodeName => $nodeCount) {
+			if ($nodeCount > 1) {
+				$obj->$nodeName = array();
+				for ($i=0; $i<$nodeCount; $i++) {
+					array_push($obj->$nodeName, new StdClass());
+				}
+			} else {
+				$obj->$nodeName = new StdClass();
+			}
+		}
         //**********************************************************
         // For each child node: add attributes as object properties and invoke recursion
-        $arrayIdx = array();
-        foreach ($xml->children() as $xmlChild) {
-            $str = trim($xmlChild);
+		$arrayIdx = array();
+		foreach ($xml->children() as $xmlChild) {
+			$str = trim($xmlChild);
             //print_r($xmlChild->attributes());
-            $nodeText = trim($xmlChild);
-            $nodeName = $xmlChild->getName();
+			$nodeText = trim($xmlChild);
+			$nodeName = $xmlChild->getName();
             // If child is array
-            if (is_array($obj->$nodeName)) {
-                $idx = (int)@$arrayIdx[$nodeName];
-                $objArray = $obj->$nodeName;
+			if (is_array($obj->$nodeName)) {
+				$idx = (int)@$arrayIdx[$nodeName];
+				$objArray = $obj->$nodeName;
                 // Add attributes as object properties
-                foreach($xmlChild->attributes() as $attributeType => $attributeValue) {
-                    $objArray[$idx]->$attributeType = (string)$attributeValue;
-                }
+				foreach($xmlChild->attributes() as $attributeType => $attributeValue) {
+					$objArray[$idx]->$attributeType = (string)$attributeValue;
+				}
                 // If element text (e.g. <node>ElementText<node>
-                if (strlen($nodeText)) $objArray[$idx]->$nodeName = $nodeText;
+				if (strlen($nodeText)) $objArray[$idx]->$nodeName = $nodeText;
                 // Invoke recursion
-                XmlUtils::xmlToObject($xmlChild, $objArray[$idx]);
-            }
+				XmlUtils::xmlToObject($xmlChild, $objArray[$idx]);
+			}
             // If child is object
-            if (is_object($obj->$nodeName)) {
+			if (is_object($obj->$nodeName)) {
                 // Add attributes as object properties
-                foreach($xmlChild->attributes() as $attributeType => $attributeValue) {
-                    $obj->$nodeName->$attributeType = (string)$attributeValue;
-                }
+				foreach($xmlChild->attributes() as $attributeType => $attributeValue) {
+					$obj->$nodeName->$attributeType = (string)$attributeValue;
+				}
                 // If element text (e.g. <node>ElementText<node>
-                if (strlen($nodeText)) $obj->$nodeName->$nodeName = $nodeText;
+				if (strlen($nodeText)) $obj->$nodeName->$nodeName = $nodeText;
                 // Invoke recursion
-                XmlUtils::xmlToObject($xmlChild, $obj->$nodeName);
-            }
-            @$arrayIdx[$nodeName]++;
-        }
-        return $obj;
-    }
- 
-    public static function xmlFileToObject($xmlFileName) {
-        if (!file_exists($xmlFileName)) die ("XmlUtils::xmlFileToObject Error: $xmlFileName nonexistent!");
-        $xml = simplexml_load_file($xmlFileName);
-        return XmlUtils::xmlToObject($xml);
-    }
+				XmlUtils::xmlToObject($xmlChild, $obj->$nodeName);
+			}
+			@$arrayIdx[$nodeName]++;
+		}
+		return $obj;
+	}
+
+	public static function xmlFileToObject($xmlFileName) {
+		if (!file_exists($xmlFileName)) die ("XmlUtils::xmlFileToObject Error: $xmlFileName nonexistent!");
+		$xml = simplexml_load_file($xmlFileName);
+		return XmlUtils::xmlToObject($xml);
+	}
 }
 
 
@@ -77,38 +77,59 @@ Class XmlUtils {
 $double = 'false'; // Enter true or false for Double Opt-in
 $welcome = 'true'; // Enter true or false to send the Final Welcome Email Message
 
-	$name = $_POST["fname"];
-	$format = "html";
-	$xmlFile = 'input.xml';
-	$resultObj = XmlUtils::xmlFileToObject($xmlFile);
-	$email = !isset($_POST['email']) ? 0 : $_POST['email'];
-    $email_type='html';
-	$totalgroupings = intval($resultObj->totalgroupings->key);
+$name = $_POST["fname"];
+$format = "html";
+$xmlFile = 'input.xml';
+$resultObj = XmlUtils::xmlFileToObject($xmlFile);
+$email = !isset($_POST['email']) ? 0 : $_POST['email'];
+$email_type='html';
+$totalgroupings = intval($resultObj->totalgroupings->key);
 
 
-    $apikey = $resultObj->apikey->key;
-    $apiUrl = 'http://api.mailchimp.com/1.3/';
-	$listId = $resultObj->listid->key; 
-	$double=$resultObj->doubleoptin->key;
-	$update_existing=true;
+$apikey = $resultObj->apikey->key;
+$apiUrl = 'http://api.mailchimp.com/1.3/';
+$listId = $resultObj->listid->key; 
+$double = $resultObj->doubleoptin->key;
+
+
+  if($resultObj->update_existing->key == "false")
+	{
+
+	$update_existing = false;
+
+	}
+	else 
+    {
+	$update_existing = true;
+    }
+
+
+if($resultObj->replaceinterests->key == "false")
+{
+
+	$replace_interests=false;
+}
+else
+{
 	$replace_interests=true;
-	$welcome=$resultObj->welcomeemail->key;
-	$successtype=$resultObj->successtype->key;
-    $thankyouurl=$resultObj->thankyouurl->key;
+}
+$welcome=$resultObj->welcomeemail->key;
+$successtype=$resultObj->successtype->key;
+$thankyouurl=$resultObj->thankyouurl->key;
 
 
 
-	
 
-	require_once 'MCAPI.class.php';
-	
+
+require_once 'MCAPI.class.php';
+
 
 	// EDIT BELOW THIS LINE AT YOUR OWN RISK
-	ob_start();
-	echo "Your request is being processed...";
+ob_start();
+echo "Your request is being processed...";
 
 
-	if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 		//$success ="";
 		//$retval = $api->listMemberInfo( $listId, array($email) );
@@ -118,79 +139,82 @@ $welcome = 'true'; // Enter true or false to send the Final Welcome Email Messag
 		// 	$success = $retval['success'];
 		// }
 			//CODE TO ADD NEW SUBSCRIBER
-			echo "new subscriber<br>";
-			
-		    $index=0;
-		    $groupArray =array();
+	echo "new subscriber<br>";
+
+	$index=0;
+	$groupArray =array();
 		    //print_r($resultObj->groups);
-		    foreach ($resultObj->groups as $groups) {
-		    	
-		    	$garray ='';
-		    	$Gettype = gettype($groups);
-		    	if($Gettype == 'array'){
-			    	foreach ($groups as $groupings) {
+	foreach ($resultObj->groups as $groups) {
 
-			    	 	$grouping = $groupings->key;
-			    	 	$intrests = array();
-			    	 	
-			    	 	foreach ($groupings->group as $gp){
-			      	 	if(empty($gp->key)){
-			      	 		echo $resultObj->grouping->key ."==>".$gp."<br />";
-			      	 		$garray[++$index] = array('name'=>$groupings->key,'groups'=>$gp);        
-			      	 	}else{	
-			      	 	  echo $resultObj->grouping->key ."==>".$gp->key."<br />";
-			      	 	  $garray[++$index] = array('name'=>$groupings->key,'groups'=>$gp->key);        
-			      	 	}			      	 		
-			       	}
-			    	 	$groupArray = $garray;
-			    	} 
-		    	}else{
+		$garray ='';
+		$Gettype = gettype($groups);
+		if($Gettype == 'array'){
+			foreach ($groups as $groupings) {
 
-		        foreach ($groups->group as $gp){
-		          if(empty($gp->key)){
-		           echo $groups->group->key ."==>".$gp."<br />";
-		           $garray[++$index] = array('name'=>$groups->key,'groups'=>$gp);        
-		            
-		          }else{ 
-		            echo $groups->group->key ."==>".$gp->key."<br />";
-		            $garray[++$index] = array('name'=>$groups->key,'groups'=>$gp->key);        
-		          } 
-		           
-		        }
-		    	}
-		    }
+				$grouping = $groupings->key;
+				$intrests = array();
 
-		   $merge_vars = array('FNAME'=>$name, 
-		 	'LNAME'=>"", 
-		 	'EMAIL'=>htmlentities($email),
-		    'GROUPINGS'=>$garray
-		    );
-
-		   		$api = new MCAPI($apikey);
-
-                $retval = $api->listSubscribe($listId,$email, $merge_vars,$email_type,$double,$update_existing, $replace_interests, $welcome);
-				//$retval = $api->listSubscribe( $listId, $email, $merge_vars, $format, $double, $welcome);
-		    
-				if ($api->errorCode){
-					echo "Unable to load listSubscribe()!\n";
-					echo "\tCode=".$api->errorCode."\n";
-					echo "\tMsg=".$api->errorMessage."\n";
-					header ("Location: index.php?msg=email_error");
-
-				} else {
-
-					echo "\n Subscribed";
-					if($successtype === "url")
-				    {
-				      	header ("Location: ".$thankyouurl);
-											    
-				    }
-				    else 
-				    {
-				        header ("Location: index.php?msg=success");
-				    }
-
+				foreach ($groupings->group as $gp){
+					if(empty($gp->key)){
+						echo $resultObj->grouping->key ."==>".$gp."<br />";
+						$garray[++$index] = array('name'=>$groupings->key,'groups'=>$gp);        
+					}else{	
+						echo $resultObj->grouping->key ."==>".$gp->key."<br />";
+						$garray[++$index] = array('name'=>$groupings->key,'groups'=>$gp->key);        
+					}			      	 		
 				}
+				$groupArray = $garray;
+			} 
+		}else{
+
+			foreach ($groups->group as $gp){
+				if(empty($gp->key)){
+					echo $groups->group->key ."==>".$gp."<br />";
+					$garray[++$index] = array('name'=>$groups->key,'groups'=>$gp);        
+
+				}else{ 
+					echo $groups->group->key ."==>".$gp->key."<br />";
+					$garray[++$index] = array('name'=>$groups->key,'groups'=>$gp->key);        
+				} 
+
+			}
+		}
+	}
+
+	$merge_vars = array('FNAME'=>$name, 
+		'LNAME'=>"", 
+		'EMAIL'=>htmlentities($email),
+		'GROUPINGS'=>$garray
+		);
+
+	$api = new MCAPI($apikey);
+
+	var_dump($replace_interests);
+
+        $retval = $api->listSubscribe($listId,$email, $merge_vars,$email_type,$double,$update_existing, $replace_interests, $welcome);
+	    //$retval = $api->listSubscribe($listId,$email, $merge_vars,$email_type,$double,$update_existing, true, $welcome);
+	    
+
+	if ($api->errorCode){
+		echo "Unable to load listSubscribe()!\n";
+		echo "\tCode=".$api->errorCode."\n";
+		echo "\tMsg=".$api->errorMessage."\n";
+		header ("Location: index.php?msg=".$api->errorMessage);
+
+	} else {
+
+		echo "\n Subscribed";
+		if($successtype === "url")
+		{
+			header ("Location: ".$thankyouurl);
+
+		}
+		else 
+		{
+			header ("Location: index.php?msg=success");
+		}
+
+	}
 			//CODE TO UPDATE SUBSCRIBER
 			/*if($cnt == 0){
 				$count = '1';
@@ -211,9 +235,9 @@ $welcome = 'true'; // Enter true or false to send the Final Welcome Email Messag
 				}
 			}
 			header ("Location: index.php?msg=update");*/
-		
-	}else{
-			header ("Location: index.php?msg=email_error");
-	}
 
-?>
+		}else{
+			header ("Location: index.php?msg=email_error");
+		}
+
+		?>
