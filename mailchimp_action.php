@@ -95,12 +95,12 @@ $double = $resultObj->doubleoptin->key;
   if($resultObj->update_existing->key == "false")
 	{
 
-	$update_existing = false;
+	$updateexisting = false;
 
 	}
 	else 
     {
-	$update_existing = true;
+	$updateexisting = true;
     }
 
 

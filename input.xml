@@ -1,7 +1,7 @@
 <root>
     <apikey key="YOUR API KEY" /> 
     <listid key="YOUR LIST ID" />
-    <update_existing key="true" />
+    <updateexisting key="true" />
     <doubleoptin  key="false" />
     <welcomeemail key="true" />
     <successtype  key="url" />
