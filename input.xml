@@ -2,10 +2,10 @@
     <apikey key="YOUR API KEY" /> 
     <listid key="YOUR LIST ID" />
     <updateexisting key="true" />
+    <replaceinterests  key="true" />
     <doubleoptin  key="false" />
     <welcomeemail key="true" />
     <successtype  key="url" />
-    <replaceinterests  key="true" />
     <thankyouurl  key="http://ChimpChamp.com" />
 
     <totalgroupings key="2" />
