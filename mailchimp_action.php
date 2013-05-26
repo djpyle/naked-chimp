@@ -191,7 +191,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 	var_dump($replace_interests);
 
-        $retval = $api->listSubscribe($listId,$email, $merge_vars,$email_type,$double,$update_existing, $replace_interests, $welcome);
+        $retval = $api->listSubscribe($listId,$email, $merge_vars,$email_type,$double,$updateexisting, $replace_interests, $welcome);
 	    //$retval = $api->listSubscribe($listId,$email, $merge_vars,$email_type,$double,$update_existing, true, $welcome);
 	    
 
